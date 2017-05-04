@@ -1,0 +1,20 @@
+
+open source project learning
+
+-----------------------------------------------libevent
+[focus]
+    io
+    thread
+[version]
+   libevent-0.1.tar.gz 
+        ./configure --prefix=./
+        vim Makefile, change '-g -O2' to '-ggdb3 -O0'
+        make
+
+
+----------------------------------------------thrift
+[focus]
+    rpc
+    protocol design
+[version]
+
