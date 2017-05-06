@@ -10,6 +10,9 @@ open source project learning
         ./configure --prefix=./
         vim Makefile, change '-g -O2' to '-ggdb3 -O0'
         make
+    libevent-0.7c.tar.gz
+        ./configure --prefix=/home/OSPL/event/libevent CFLAGS='-ggdb3 -O0'
+        make
 
 
 ----------------------------------------------thrift
