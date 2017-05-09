@@ -64,7 +64,7 @@ fifo_read_timeout(int fd, short event, void *arg)
 
         /* Reschedule this event, diff with fifo_read at this step */
         struct timeval delay;
-        delay.tv_sec = 3;
+        delay.tv_sec = 2;
         delay.tv_usec = 0;
         event_add(ev, &delay);
 
@@ -94,7 +94,7 @@ main (int argc, char **argv)
 	int socket;
 	struct event evfifo, evtimeout;
     struct timeval delay;
-    delay.tv_sec = 3;
+    delay.tv_sec = 2;
     delay.tv_usec = 0;
  
 	if (lstat (fifo, &st) == 0) {
@@ -135,13 +135,13 @@ main (int argc, char **argv)
 	event_add(&evfifo, NULL);
 #endif
 
-#if 0
+#if 1
 	event_set(&evtimeout, socket, EV_TIMEOUT, fifo_timeout, &evtimeout);
     fprintf(stderr, "sec: %d  usec: %d\n", delay.tv_sec, delay.tv_usec);
 	event_add(&evtimeout, &delay);
 #endif
 	
-#if 1
+#if 0
 	event_set(&evfifo, socket, EV_READ|EV_TIMEOUT, fifo_read_timeout, &evfifo);
 	event_add(&evfifo, &delay);
 #endif

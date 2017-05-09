@@ -18,7 +18,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include <event.h>
+#include "event.h"
 
 void
 fifo_read(int fd, short event, void *arg)
@@ -33,8 +33,7 @@ fifo_read(int fd, short event, void *arg)
 	/* Reschedule this event */
 	event_add(ev, NULL);
 
-	fprintf(stderr, "fifo_read called with fd: %d, event: %d, arg: %p\n",
-		fd, event, arg);
+	//fprintf(stderr, "fifo_read called with fd: %d, event: %d, arg: %p\n", fd, event, arg);
 #ifdef WIN32
 	len = ReadFile((HANDLE)fd, buf, sizeof(buf) - 1, &dwBytesRead, NULL);
 
@@ -59,13 +58,24 @@ fifo_read(int fd, short event, void *arg)
 
 	buf[len] = '\0';
 #endif
-	fprintf(stdout, "Read: %s\n", buf);
+	fprintf(stdout, "Read: %s", buf);
+}
+
+void
+fifo_write(int fd, short event, void *arg)
+{
+	struct event *ev = arg;
+	event_add(ev, NULL);
+	char buf[255] = {0};
+    sprintf(buf, "feedback in fd=%d, event=%d ev=%p\n", fd, event, arg);
+	write(fd, buf, strlen(buf)+1);
+	fprintf(stdout, "Write: %s", buf);
 }
 
 int
 main (int argc, char **argv)
 {
-	struct event evfifo;
+	struct event evfifo, evwrite;
 #ifdef WIN32
 	HANDLE socket;
 	// Open a file. 
@@ -121,10 +131,12 @@ main (int argc, char **argv)
 	event_set(&evfifo, (int)socket, EV_READ, fifo_read, &evfifo);
 #else
 	event_set(&evfifo, socket, EV_READ, fifo_read, &evfifo);
+    event_set(&evwrite, socket, EV_WRITE, fifo_write, &evwrite);
 #endif
 
 	/* Add it to the active events, without a timeout */
 	event_add(&evfifo, NULL);
+	event_add(&evwrite, NULL);
 	
 	event_dispatch();
 #ifdef WIN32

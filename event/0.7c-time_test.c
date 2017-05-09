@@ -18,7 +18,7 @@
 #include <string.h>
 #include <errno.h>
 
-#include <event.h>
+#include "event.h"
 
 int lasttime;
 
@@ -29,8 +29,8 @@ timeout_cb(int fd, short event, void *arg)
 	struct event *timeout = arg;
 	int newtime = time(NULL);
 
-	printf("%s: called at %d: %d\n", __func__, newtime,
-	    newtime - lasttime);
+    gettimeofday(&tv, NULL);
+	printf("%s: called at %d: %d [%d %d]\n", __func__, newtime, newtime - lasttime, tv.tv_sec, tv.tv_usec);
 	lasttime = newtime;
 
 	timerclear(&tv);
