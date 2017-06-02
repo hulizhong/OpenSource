@@ -1,5 +1,13 @@
 
 open source project learning
+    will reading code with [Beyond compare] and [source insight].
+    will test code with demo.
+
+[rule]
+    annotation will set rabinhu flag.
+    ??? meaning unknown.
+
+
 
 -----------------------------------------------libevent
 [focus]
@@ -16,8 +24,15 @@ open source project learning
     libevent-0.8.tar.gz
         ./configure --prefix=/home/OSPL/event/libevent CFLAGS='-ggdb3 -O0'
         make
+    libevent-1.2.tar.gz
+        ./configure --prefix=/home/OSPL/event/libevent CFLAGS='-ggdb3 -O0' --enable-static=no
+            //--enable-shared --enable-static default yes.
+        make -j 4
+    libevent-2.1.5-beta.tar.gz
+        ./configure --prefix=/home/OSPL/event/libevent CFLAGS='-ggdb3 -O0' --enable-static=no --enable-verbose-debug=yes
+        make -j 4
 
-        [*]sample test file is same to 0.7c
+        
 
 
 ----------------------------------------------thrift
