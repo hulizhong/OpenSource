@@ -41,3 +41,16 @@ open source project learning
     protocol design
 [version]
 
+------------------------------------------------boost
+[focus]
+c++ feature
+
+
+[version]
+    boost_1_58_0.tar.gz
+        ./bootstrap.sh   (can --help)
+        ./b2 variant=debug link=shared  (can --help)
+        ./b2 install
+
+
+
