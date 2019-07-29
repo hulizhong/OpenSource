@@ -17,6 +17,7 @@ public:
 };
 
 
+//g++ ptr.cpp -std=c++11 -I /usr/local/include/ -L /usr/local/lib/
 int main()
 {
     FF *f = NULL;
